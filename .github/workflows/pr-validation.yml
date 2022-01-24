@@ -14,7 +14,16 @@
 # specific language governing permissions and limitations under the License.
 #
 name: Java CI - Code validation and tests (checkstyle,rat,spotbugs)
-on: [pull_request]
+on: 
+  pull_request:
+    paths:
+      - '**.*'
+  workflow_dispatch:
+    inputs:
+      redirectTestOutputToFile:
+        description: 'Log level'     
+        required: true
+        default: 'true'
 env:
   MAVEN_OPTS: -Dmaven.artifact.threads=4 -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn  -Dmaven.wagon.httpconnectionManager.ttlSeconds=25 -Dmaven.wagon.http.retryHandler.count=3
 jobs:
@@ -37,7 +46,7 @@ jobs:
           key: 'cache'
           restore-keys: 'cache'
       - name: 'Build with Maven'
-        run: mvn -B checkstyle:check install spotbugs:check -Dmaven.test.redirectTestOutputToFile=false -Dherddb.file.requirefsync=false --file pom.xml
+        run: mvn -B checkstyle:check install spotbugs:check -Dmaven.test.redirectTestOutputToFile=${{ github.event.inputs.redirectTestOutputToFile }} -Dherddb.file.requirefsync=false --file pom.xml
       - name: Publish Test Report
         if: ${{ failure() }}
         uses: scacap/action-surefire-report@v1
