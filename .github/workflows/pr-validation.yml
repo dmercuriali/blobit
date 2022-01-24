@@ -44,5 +44,6 @@ jobs:
         with:
           name: surefire-output
           path: /home/runner/work/blobit/blobit/blobit-*/target/surefire-reports/*-output.txt
+          retention-days: 5
       - name: 'Remove Snapshots Before Caching'
         run: find ~/.m2 -name '*SNAPSHOT' | xargs rm -Rf
