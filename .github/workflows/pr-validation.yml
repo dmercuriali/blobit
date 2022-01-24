@@ -37,7 +37,7 @@ jobs:
           key: 'cache'
           restore-keys: 'cache'
       - name: 'Build with Maven'
-        run: mvn -B checkstyle:check install spotbugs:check -Dmaven.test.redirectTestOutputToFile=true -Dherddb.file.requirefsync=false --file pom.xml
+        run: mvn -B checkstyle:check install spotbugs:check -Dmaven.test.redirectTestOutputToFile=false -Dherddb.file.requirefsync=false --file pom.xml
       - name: Publish Test Report
         if: ${{ failure() }}
         uses: scacap/action-surefire-report@v1
