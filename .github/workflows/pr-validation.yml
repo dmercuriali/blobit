@@ -37,7 +37,7 @@ jobs:
           key: 'cache'
           restore-keys: 'cache'
       - name: 'Build with Maven'
-        run: mvn -B checkstyle:check install spotbugs:check -Dmaven.test.redirectTestOutputToFile=${{ github.event.inputs.redirectTestOutputToFile }} -Dherddb.file.requirefsync=false --file pom.xml
+        run: mvn -B checkstyle:check install spotbugs:check -Dmaven.test.redirectTestOutputToFile=true -Dherddb.file.requirefsync=false --file pom.xml
       - name: 'Archive surefire outputs'
         if: ${{ failure() }}
         uses: actions/upload-artifact@v2
