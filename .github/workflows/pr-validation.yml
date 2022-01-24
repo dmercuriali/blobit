@@ -43,7 +43,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: surefire-output
-          path: /home/runner/work/blobit/blobit/blobit-*/target/surefire-reports/*-output.txt
+          path: /home/runner/work/blobit/blobit/blobit-*/target/surefire-reports/*
           retention-days: 5
       - name: 'Remove Snapshots Before Caching'
         run: find ~/.m2 -name '*SNAPSHOT' | xargs rm -Rf
